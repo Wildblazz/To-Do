@@ -20,8 +20,6 @@ body{
     z-index: 2;
 }
 #date{
-    /*bottom: 10px;*/
-    /*position: center;*/
     color: #FFF;
     font-size: 25px;
 }
@@ -111,7 +109,7 @@ body{
     position: fixed;
     left: 0;
     bottom: 0;
-    height: 60;
+    height: 60px;
     width: 100%;
     z-index: 1;
     background-color: rgb(12, 234, 215);;
