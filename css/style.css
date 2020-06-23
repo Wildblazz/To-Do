@@ -1,171 +1,281 @@
-body{
-    padding: 0;
+body {
     margin: 0;
-    font-family: 'Titillium Web', sans-serif;
+    padding: 0;
+    font-family: sans-serif;
+    min-width: 400px;
 }
 
- /*------------ container ------------*/
-.container{
-    margin:0 auto;
-    overflow: auto;
+.wrapper {
+    height: 100%;
+    width: 100%;
+    position: absolute;
 }
 
 /* ------------ header ------------ */
-.header{
-    height:200px;
+.header {
+    height: 200px;
     background-image: linear-gradient(to top, #06ffa8, #04c5f5);
     background-size: 100% 200%;
-    position: sticky;
+    position: fixed;
     top: 0;
-    z-index: 2;
+    width: 100%;
+    z-index: 10;
 }
-#date{
+
+#date {
     color: #FFF;
     font-size: 25px;
 }
+.button-block{
+    position: relative;
+    /*height: 100%;*/
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /*bottom: 1px;*/
+}
+
+/*------------ container ------------*/
+.container {
+    margin: 0 auto;
+    overflow: hidden;
+    margin-top: 200px;
+}
 
 /* ------------ content ------------ */
-.content{
+.content {
+    /*position: relative;*/
     background-color: #FFF;
     overflow: auto;
-    margin-bottom: 40px;
+    margin-bottom: 92px;
 }
+
 .content::-webkit-scrollbar {
     display: none;
 }
-.content ul{
-    padding:0;
-    margin:0;
+
+.content ul {
+    position: relative;
+    padding: 0;
+    margin: 0;
 }
-.item{
+
+.item {
+    /*position: relative;*/
     height: 45px;
     min-height: 45px;
     position: relative;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     list-style: none;
     padding: 0;
     margin: 0;
 }
-.item i.co{
+
+.item i.co {
     position: absolute;
     font-size: 25px;
-    padding-left:5px;
-    left:15px;
-    top:10px;
+    padding-left: 5px;
+    left: 15px;
+    top: 10px;
 }
-.item i.co:hover{
+
+.item i.co:hover {
     cursor: pointer;
 }
-.fa-check-circle{
+
+.fa-check-circle {
     color: #94f101;
 }
-.item p.text{
+
+.item p.text {
     position: relative;
     width: 88%;
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
     font-size: 20px;
-    left:50px;
-    top:5px;
+    left: 50px;
+    top: 5px;
     background-color: #ffffff;
     text-overflow: ellipsis;
     overflow: hidden;
 }
 
-.item input.edit{
-    position: absolute;
-    height: 45px;
-    min-height: 45px;
-    width: 100%;
-    font-size: 20px;
-    border-bottom: 1px solid rgba(0,0,0,0.1);
-    padding-left: 10px;
-    margin: 0;
-    z-index: 2;
-}
-.item i.de{
+.item i.de {
     position: absolute;
     font-size: 25px;
-    right:15px;
-    top:10px;
+    right: 15px;
+    top: 10px;
 }
-.item i.de:hover{
-    color: #ff0000;
+
+.item i.de:hover {
+    color: #fc0047;
     cursor: pointer;
 }
-.item i.ed{
+
+.item i.ed {
     position: absolute;
     font-size: 25px;
-    right:45px;
-    top:12px;
+    right: 45px;
+    top: 12px;
 }
-.item i.ed:hover{
+
+.item i.ed:hover {
     color: #80ff00;
     cursor: pointer;
 }
 
-/* !*------------ add item ------------ *!*/
-.add-to-do{
+/*------------ add item input ------------ */
+.input-box {
+    position: fixed;
+    top: calc(100% - 45px);
+    left: 50%;
+    width: 100%;
+    padding: 20px 10px 10px 10px;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(#141e30, #243b55);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+    border-radius: 10px;
+}
+
+.input-box .add-to-do {
+    position: relative;
+}
+
+.input-box .add-to-do textarea {
+    width: 1px;
+    height: 20px;
+    resize: none;
+    overflow: hidden;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
+    background: transparent;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.add-to-do textarea:focus {
+    border-bottom: 1px solid;
+    border-color: #03e9f4;
+    width: 100%;
+}
+
+.add-to-do textarea:indeterminate {
+    border-bottom: 1px solid;
+    border-color: #03e9f4;
+    width: 100%;
+}
+
+.add-to-do textarea:hover {
+    cursor: pointer;
+}
+
+.add-to-do textarea:focus {
+    cursor: text;
+}
+
+
+.input-box .add-to-do label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-box .add-to-do textarea:focus ~ label,
+.input-box .add-to-do textarea:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.label-wrapper:hover {
+    cursor: pointer;
+}
+
+
+/*modal*/
+.modal {
     position: fixed;
     left: 0;
-    bottom: 0;
-    height: 60px;
+    top: 0;
     width: 100%;
-    z-index: 1;
-    background-color: rgb(12, 234, 215);;
-    border-radius: 5px;
-}
-.add-to-do i{
-    position: sticky;
-    font-size: 40px;
-    color: #417df6;
-    left:3px
+    height: 100%;
+    background-color: rgba(56, 73, 85, 0.5);
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+
 }
 
-.add-to-do input{
+.modal-content {
     position: absolute;
-    left: 50px;
-    height: 33px;
-    width: 96%;
-    background-color: transparent;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 400px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.modal-input{
+    min-width: 100%;
+    min-height: 90%;
+    outline: none;
+    resize: none;
+    overflow: auto;
+}
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.modal button {
     border: none;
-    font-size: 20px;
-    padding-left:10px;
-}
-.add-to-do input::-webkit-input-placeholder {
-    color: black;
-    font-size: 20px;
+    border-radius: 5px;
+    padding: 10px 10px;
 }
 
-/*.button-block{*/
-/*    margin: 0 auto;*/
-/*    width: 50%;*/
-/*}*/
+.submit {
+    background: #8CDA26;
+}
 
+.cancel {
+    background: #da2632;
+}
 
+.submit:hover {
+    background: #92f604;
+    cursor: pointer;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.cancel:hover {
+    background: #ff0000;
+    cursor: pointer;
+}
 
 
 

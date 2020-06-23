@@ -1,5 +1,4 @@
 const input = document.getElementById("input");
-const enterNote = document.getElementById("enterNote");
 const list = document.getElementById("list");
 const date = document.getElementById("date");
 const calendar = document.getElementById("calendar");
@@ -8,10 +7,15 @@ const active = document.getElementById("active");
 const all = document.getElementById("all");
 const completed = document.getElementById("completed");
 const item = document.getElementsByClassName("item");
+const modal = document.querySelector(".modal");
+const modalInput = document.getElementById("modal-input");
+const submitButton = document.getElementById("edit-submit");
+const closeButton = document.querySelector(".cancel");
 let noteList = getNoteListFromLocalStorage();
 let id = (noteList && noteList.length > 0 && noteList[noteList.length - 1].noteId) ? noteList[noteList.length - 1].noteId + 1 : 0;
 let currentDate = new Date(Date.now());
 let noteType = '';
+let selectedNote = '';
 
 // Icons
 const CHECK_ICON = "fa fa-check-circle co";
@@ -28,7 +32,6 @@ class Note {
 
 // Init app
 renderNotes()
-
 
 //Handle localStorage content
 function renderNotes() {
@@ -68,9 +71,11 @@ function setDate(someDate) {
     date.innerText = new Date(Date.parse(someDate)).toLocaleDateString(undefined, options);
 }
 
-//Handle add note event
-enterNote.addEventListener("click", () => {
-    handleAddNote();
+// handle add note
+document.addEventListener("click", () => {
+    if (input.value) {
+        input.style.width = '100%';
+    }
 })
 input.addEventListener("keyup", (e) => {
     if (e.key === 'Enter') {
@@ -79,6 +84,10 @@ input.addEventListener("keyup", (e) => {
 });
 
 function handleAddNote() {
+    if (input.value === '\n') {
+        input.value = '';
+        return;
+    }
     if (noteType) {
         changeNoteType('');
     }
@@ -104,7 +113,7 @@ function renderNoteList(note) {
                 <p class="text">${note.text}</p>
                 <i class="fa fa-trash-o de" action="remove" id=${note.noteId}></i>
                 <i class="fa fa-edit ed" action="edit" id=${note.noteId}></i>
-                <input type="text" class="edit" style="display: none" id=${note.noteId}>`
+`
         list.insertAdjacentElement('beforeend', noteElement);
         window.scrollTo(0, document.body.scrollHeight);
         return note;
@@ -138,26 +147,9 @@ list.addEventListener("click", e => {
         if (action === 'edit') {
             const target = document.getElementById(e.target.getAttribute('id'));
             const text = target.getElementsByClassName('text')[0];
-            const editedNote = target.getElementsByClassName('edit')[0];
-            editedNote.setAttribute('style', 'display: block')
-            editedNote.setAttribute('value', `${text.innerText}`);
-            editedNote.addEventListener("keyup", (event) => {
-                    if (event.key === 'Enter') {
-                        const editedNoteValue = editedNote.value;
-                        if (editedNoteValue && text.innerText !== editedNoteValue) {
-                            text.innerText = editedNoteValue;
-                            noteList.find(note => note.noteId == target.id).text = editedNoteValue;
-                            saveNodeListToLocalStorage();
-                        }
-                        editedNote.setAttribute('style', 'display: none')
-                    }
-                }
-            );
-            document.addEventListener("keyup", (event) => {
-                if (event.key === 'Escape') {
-                    editedNote.setAttribute('style', 'display: none')
-                }
-            });
+            modalInput.innerText = text.innerText;
+            selectedNote = target.getAttribute("id");
+            toggleModal();
         }
     }
 );
@@ -174,8 +166,37 @@ all.addEventListener('click', () => {
 });
 
 function changeNoteType(status) {
-        noteType = status;
-        eraseRenderedNotes();
-        renderNotes();
+    noteType = status;
+    eraseRenderedNotes();
+    renderNotes();
+}
+
+//edit note modal
+submitButton.addEventListener("click", (e) => {
+    editNote(e);
+    toggleModal()
+});
+closeButton.addEventListener("click", toggleModal);
+
+window.addEventListener("click", windowOnClick);
+
+function toggleModal() {
+    modal.classList.toggle("show-modal");
+}
+
+function windowOnClick(event) {
+    if (event.target === modal) {
+        toggleModal();
+    }
+}
+
+function editNote(e) {
+    const target = document.getElementById(selectedNote);
+    const text = target.getElementsByClassName('text')[0];
+    if (modalInput.value && modalInput.value !== text.innerText) {
+        text.innerText = modalInput.value;
+        noteList.find(note => note.noteId == selectedNote).text = text.innerText;
+        saveNodeListToLocalStorage();
+    }
 }
 
