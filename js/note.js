@@ -45,7 +45,7 @@ class Note {
 }
 
 // Init app
-function intApp(){
+function intApp() {
     renderNotes();
     setDate(new Date());
 }
@@ -186,15 +186,12 @@ list.addEventListener(EVENT_CLICK, e => {
             e.target.className = state;
             noteList.find(note => note.noteId.toString() === target.id).state = state === CHECK_ICON ? STATE_COMPLETED : STATE_ACTIVE;
             saveNodeListToLocalStorage();
-        }
-        if (action === ACTION_REMOVE) {
+        } else if (action === ACTION_REMOVE) {
             const target = document.getElementById(e.target.getAttribute(ATTRIBUTE_ID));
             noteList.splice(noteList.findIndex(note => note.noteId.toString() === target.id), 1)
-
             target.remove()
             saveNodeListToLocalStorage();
-        }
-        if (action === ACTION_EDIT) {
+        } else if (action === ACTION_EDIT) {
             const target = document.getElementById(e.target.getAttribute(ATTRIBUTE_ID));
             const text = target.getElementsByClassName(CLASS_TEXT)[0];
             modalInput.innerText = text.innerText;
