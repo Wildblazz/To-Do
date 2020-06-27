@@ -3,6 +3,7 @@ body {
     padding: 0;
     font-family: sans-serif;
     min-width: 400px;
+    /*height: 100%;*/
 }
 
 .wrapper {
@@ -22,12 +23,39 @@ body {
     z-index: 10;
 }
 
+.calendar{
+    position: relative;
+    justify-content: center;
+    display: flex;
+    /*visibility: hidden;*/
+}
+
+.today{
+    position: absolute;
+    justify-content: center;
+    display: flex;
+    font-size: 2rem;
+    bottom: 100px;
+    width: 100%;
+    font-weight: bold;
+}
+
+.today:hover{
+    cursor: pointer;
+}
+
 #date {
     color: #FFF;
     font-size: 25px;
+    position: absolute;
+    justify-content: center;
+    display: flex;
+    width: 100%;
+    bottom:0;
 }
 .button-block{
-    position: relative;
+    position: absolute;
+    bottom: 30px;
     /*height: 100%;*/
     width: 100%;
     display: flex;

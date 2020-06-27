@@ -54,7 +54,7 @@ function intApp(){
 function renderNotes() {
     if (noteList.length > 0) {
         for (const el of noteList) {
-            renderNoteList(el);
+            renderNote(el);
         }
     }
 }
@@ -87,14 +87,14 @@ function handleAddNote() {
 }
 
 function renderAndSaveNoteList(note) {
-    if (renderNoteList(note)) {
+    if (renderNote(note)) {
         noteList.push(note);
         id++;
         saveNodeListToLocalStorage();
     }
 }
 
-function renderNoteList(note) {
+function renderNote(note) {
     if (note.text && (note.state === noteType || !noteType) && (new Date(Date.parse(note.date)).setHours(0, 0, 0, 0) === currentDate.setHours(0, 0, 0, 0))) {
         const noteElement = document.createElement("li");
         noteElement.className = CLASS_ITEM;
@@ -106,7 +106,7 @@ function renderNoteList(note) {
                 <i class='${EDIT_ICON}' action=${ACTION_EDIT} id=${note.noteId}></i>
 `
         list.insertAdjacentElement('beforeend', noteElement);
-        window.scrollTo(0, document.body.scrollHeight);
+        window.scrollTo(0, list.scrollHeight);
         return note;
     }
 }
