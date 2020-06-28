@@ -65,6 +65,28 @@ body {
     cursor: pointer;
 }
 
+.btn {
+    color: #151111;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #ffffff;
+    padding: 7px;
+    border-radius: 5px;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+    margin-left: 5px;
+    font-weight: bold;
+}
+.btn:hover {
+    color: #ffffff;
+    background: #434343;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+    transition: all 0.2s ease 0s;
+}
+
 /*------------ container ------------*/
 .container {
     margin: 0 auto;
@@ -207,7 +229,7 @@ body {
 
 .add-to-do textarea:indeterminate {
     border-bottom: 1px solid;
-    border-color: #ffffff;
+    border-color: #03f4ec;
     width: 100%;
 }
 
@@ -316,6 +338,4 @@ footer {
     background: #ff0000;
     cursor: pointer;
 }
-
-
 
