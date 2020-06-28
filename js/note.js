@@ -21,9 +21,7 @@ const list = document.getElementById("list");
 const date = document.getElementById("date");
 const calendar = document.getElementById("calendar");
 const today = document.getElementById("today");
-const active = document.getElementById("active");
-const all = document.getElementById("all");
-const completed = document.getElementById("completed");
+const buttonBlock = document.getElementById("button-block");
 const item = document.getElementsByClassName("item");
 const modal = document.querySelector(".modal");
 const modalInput = document.getElementById("modal-input");
@@ -191,7 +189,9 @@ list.addEventListener(EVENT_CLICK, e => {
             noteList.splice(noteList.findIndex(note => note.noteId.toString() === target.id), 1)
             target.remove()
             saveNodeListToLocalStorage();
-        } else if (action === ACTION_EDIT) {
+        }
+        // cannot use only else
+        else if (action === ACTION_EDIT) {
             const target = document.getElementById(e.target.getAttribute(ATTRIBUTE_ID));
             const text = target.getElementsByClassName(CLASS_TEXT)[0];
             modalInput.innerText = text.innerText;
@@ -211,12 +211,15 @@ closeButton.addEventListener(EVENT_CLICK, toggleModal);
 window.addEventListener(EVENT_CLICK, windowOnClick);
 
 //changing note type
-active.addEventListener(EVENT_CLICK, () => {
-    changeNoteType(STATE_ACTIVE);
-});
-completed.addEventListener(EVENT_CLICK, () => {
-    changeNoteType(STATE_COMPLETED)
-});
-all.addEventListener(EVENT_CLICK, () => {
-    changeNoteType('');
-});
+buttonBlock.addEventListener(EVENT_CLICK, e => {
+        const action = e.target.getAttribute(ATTRIBUTE_ACTION);
+
+        if (action === STATE_ACTIVE) {
+            changeNoteType(STATE_ACTIVE);
+        } else if (action === STATE_COMPLETED) {
+            changeNoteType(STATE_COMPLETED)
+        } else {
+            changeNoteType('');
+        }
+    }
+);
