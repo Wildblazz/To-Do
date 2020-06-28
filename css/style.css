@@ -15,7 +15,7 @@ body {
 /* ------------ header ------------ */
 .header {
     height: 200px;
-    background-image: linear-gradient(to top, #06ffa8, #04c5f5);
+    background-image: linear-gradient(to top, #314755, #26a0da);
     background-size: 100% 200%;
     position: fixed;
     top: 0;
@@ -56,11 +56,13 @@ body {
 .button-block{
     position: absolute;
     bottom: 30px;
-    /*height: 100%;*/
     width: 100%;
     display: flex;
     justify-content: center;
-    /*bottom: 1px;*/
+}
+
+.button-block button:hover{
+    cursor: pointer;
 }
 
 /*------------ container ------------*/
@@ -89,10 +91,8 @@ body {
 }
 
 .item {
-    /*position: relative;*/
-    height: 45px;
-    min-height: 45px;
     position: relative;
+    min-height: 45px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     list-style: none;
     padding: 0;
@@ -115,9 +115,22 @@ body {
     color: #94f101;
 }
 
+.text-wrapper, .text-wrapper-active{
+    margin-right: 120px;
+}
+
+.text-wrapper{
+    height: 45px;
+}
+
+.text-wrapper-active{
+    word-wrap: break-word;
+    margin-bottom: 10px;
+}
+
 .item p.text {
     position: relative;
-    width: 88%;
+    width: 100%;
     padding: 0;
     margin: 0;
     font-size: 20px;
@@ -160,7 +173,7 @@ body {
     width: 100%;
     padding: 20px 10px 10px 10px;
     transform: translate(-50%, -50%);
-    background: linear-gradient(#141e30, #243b55);
+    background: linear-gradient(#26a0da, #051a3d);
     box-sizing: border-box;
     box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
     border-radius: 10px;
@@ -188,13 +201,13 @@ body {
 
 .add-to-do textarea:focus {
     border-bottom: 1px solid;
-    border-color: #03e9f4;
+    border-color: #ffffff;
     width: 100%;
 }
 
 .add-to-do textarea:indeterminate {
     border-bottom: 1px solid;
-    border-color: #03e9f4;
+    border-color: #ffffff;
     width: 100%;
 }
 
@@ -222,7 +235,7 @@ body {
 .input-box .add-to-do textarea:valid ~ label {
     top: -20px;
     left: 0;
-    color: #03e9f4;
+    color: #ffffff;
     font-size: 12px;
     cursor: pointer;
 }
@@ -230,7 +243,6 @@ body {
 .label-wrapper:hover {
     cursor: pointer;
 }
-
 
 /*modal*/
 .modal {

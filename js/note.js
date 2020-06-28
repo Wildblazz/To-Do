@@ -6,13 +6,20 @@ const EDIT_ICON = 'fa fa-edit ed';
 const ACTION_EDIT = 'edit';
 const ACTION_REMOVE = 'remove';
 const ACTION_COMPLETE = 'complete';
+const ACTION_SHOW_ALL = 'show-all';
 const STATE_ACTIVE = 'active';
 const STATE_COMPLETED = 'completed';
 const ATTRIBUTE_ID = 'id';
 const ATTRIBUTE_ACTION = 'action';
 const EVENT_CLICK = 'click';
+const EVENT_CHANGE = 'change';
+const EVENT_KEYUP = 'keyup';
 const LS_NOTE_LIST = 'noteList';
-const CLASS_TEXT = 'text';
+const TEXT = 'text';
+const CLASS = 'class';
+const CLASS_TEXT = TEXT;
+const CLASS_TEXT_WRAPPER = 'text-wrapper';
+const CLASS_TEXT_WRAPPER_ACTIVE = 'text-wrapper-active';
 const CLASS_ITEM = 'item';
 const CLASS_SHOW_MODAL = 'show-modal';
 
@@ -99,7 +106,7 @@ function renderNote(note) {
         noteElement.id = note.noteId;
         noteElement.innerHTML = `
                 <i class='${note.state === STATE_ACTIVE ? UNCHECK_ICON : CHECK_ICON}' action=${ACTION_COMPLETE} id=${note.noteId}></i>
-                <p class='${CLASS_TEXT}'>${note.text}</p>
+                <div class='${CLASS_TEXT_WRAPPER}'><p class='${CLASS_TEXT}' action=${ACTION_SHOW_ALL} id=${note.noteId}>${note.text}</p></div>
                 <i class='${TRASH_ICON}' action=${ACTION_REMOVE} id=${note.noteId}></i>
                 <i class='${EDIT_ICON}' action=${ACTION_EDIT} id=${note.noteId}></i>
 `
@@ -148,7 +155,7 @@ function editNote(e) {
 window.onload = () => intApp();
 
 //date
-calendar.addEventListener("change", () => {
+calendar.addEventListener(EVENT_CHANGE, () => {
     currentDate = new Date(calendar.value);
     setDate(currentDate);
     eraseRenderedNotes();
@@ -168,7 +175,7 @@ document.addEventListener(EVENT_CLICK, () => {
         input.style.width = '100%';
     }
 })
-input.addEventListener("keyup", (e) => {
+input.addEventListener(EVENT_KEYUP, (e) => {
     if (e.key === 'Enter') {
         handleAddNote();
     }
@@ -177,26 +184,28 @@ input.addEventListener("keyup", (e) => {
 //changing note event
 list.addEventListener(EVENT_CLICK, e => {
         const action = e.target.getAttribute(ATTRIBUTE_ACTION);
+        const target = document.getElementById(e.target.getAttribute(ATTRIBUTE_ID));
 
         if (action === ACTION_COMPLETE) {
-            const target = document.getElementById(e.target.getAttribute(ATTRIBUTE_ID));
             const state = e.target.className === CHECK_ICON ? UNCHECK_ICON : CHECK_ICON;
             e.target.className = state;
             noteList.find(note => note.noteId.toString() === target.id).state = state === CHECK_ICON ? STATE_COMPLETED : STATE_ACTIVE;
             saveNodeListToLocalStorage();
         } else if (action === ACTION_REMOVE) {
-            const target = document.getElementById(e.target.getAttribute(ATTRIBUTE_ID));
             noteList.splice(noteList.findIndex(note => note.noteId.toString() === target.id), 1)
             target.remove()
             saveNodeListToLocalStorage();
-        }
-        // cannot use only else
-        else if (action === ACTION_EDIT) {
-            const target = document.getElementById(e.target.getAttribute(ATTRIBUTE_ID));
+        } else if (action === ACTION_EDIT) {
             const text = target.getElementsByClassName(CLASS_TEXT)[0];
             modalInput.innerText = text.innerText;
             selectedNote = target.getAttribute(ATTRIBUTE_ID);
             toggleModal();
+        } else if (action === ACTION_SHOW_ALL) {
+            const textDiv = target.getElementsByClassName(CLASS_TEXT_WRAPPER)[0] ?
+                target.getElementsByClassName(CLASS_TEXT_WRAPPER)[0] :
+                target.getElementsByClassName(CLASS_TEXT_WRAPPER_ACTIVE)[0];
+            textDiv.setAttribute(CLASS,
+                textDiv.getAttribute(CLASS) === CLASS_TEXT_WRAPPER ? CLASS_TEXT_WRAPPER_ACTIVE : CLASS_TEXT_WRAPPER)
         }
     }
 );
