@@ -80,7 +80,7 @@ function setDate(someDate) {
 
 // handle add note
 function handleAddNote() {
-    if (input.value === '\n') {
+    if (input.value === '\n' || !input.value.trim()) {
         input.value = '';
         return;
     }
