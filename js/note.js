@@ -197,7 +197,7 @@ list.addEventListener(EVENT_CLICK, e => {
             saveNodeListToLocalStorage();
         } else if (action === ACTION_EDIT) {
             const text = target.getElementsByClassName(CLASS_TEXT)[0];
-            modalInput.innerText = text.innerText;
+            modalInput.value = text.innerText;
             selectedNote = target.getAttribute(ATTRIBUTE_ID);
             toggleModal();
         } else if (action === ACTION_SHOW_ALL) {
