@@ -22,6 +22,7 @@ const CLASS_TEXT_WRAPPER = 'text-wrapper';
 const CLASS_TEXT_WRAPPER_ACTIVE = 'text-wrapper-active';
 const CLASS_ITEM = 'item';
 const CLASS_SHOW_MODAL = 'show-modal';
+const NEW_LINE_REGEX = /\r?\n/gi;
 
 const input = document.getElementById("input");
 const list = document.getElementById("list");
@@ -202,7 +203,7 @@ list.addEventListener(EVENT_CLICK, e => {
             saveNodeListToLocalStorage();
         } else if (action === ACTION_EDIT) {
             const text = target.getElementsByClassName(CLASS_TEXT)[0];
-            modalInput.value = text.innerText;
+            modalInput.value = text.innerText.replace(NEW_LINE_REGEX, '');
             selectedNote = target.getAttribute(ATTRIBUTE_ID);
             toggleModal();
         } else if (action === ACTION_SHOW_ALL) {
