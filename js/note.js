@@ -133,6 +133,11 @@ function toggleModal() {
     modal.classList.toggle(CLASS_SHOW_MODAL);
 }
 
+function saveEditedNote(e) {
+    editNote(e);
+    toggleModal()
+}
+
 function windowOnClick(event) {
     if (event.target === modal) {
         toggleModal();
@@ -212,9 +217,14 @@ list.addEventListener(EVENT_CLICK, e => {
 
 //Modal
 submitButton.addEventListener(EVENT_CLICK, (e) => {
-    editNote(e);
-    toggleModal()
+    saveEditedNote(e)
 });
+modalInput.addEventListener(EVENT_KEYUP, (e) => {
+    if (e.key === 'Enter') {
+        saveEditedNote(e)
+    }
+});
+
 closeButton.addEventListener(EVENT_CLICK, toggleModal);
 
 window.addEventListener(EVENT_CLICK, windowOnClick);

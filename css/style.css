@@ -172,6 +172,7 @@ input[type="date"]:hover + button {
 
 .text-wrapper{
     height: 45px;
+    white-space: nowrap;
 }
 
 .text-wrapper-active{
